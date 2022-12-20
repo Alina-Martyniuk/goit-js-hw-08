@@ -3,11 +3,12 @@ import _ from 'lodash'
 const form = document.querySelector(".feedback-form");
 const formStateItemName = "feedback-form-state";
 
-form.addEventListener("input", saveToLocalStorage);
+form.addEventListener("input", _.throttle(saveToLocalStorage, 500));
 form.addEventListener("submit", formSubmit);
 
 function getFormAsObject(formElements) {
-    [email, textArea] = formElements;
+    let email = formElements[0];
+    let textArea = formElements[1];
     return {
         'email': email.value,
         'textArea': textArea.value
@@ -15,7 +16,8 @@ function getFormAsObject(formElements) {
 }
 
 function fillFormData(formElements, data) {
-    [email, textArea] = formElements;
+    let email = formElements[0];
+    let textArea = formElements[1];
     email.value = data.email || '';
     textArea.value = data.textArea || '';
 }

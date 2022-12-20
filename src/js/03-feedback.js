@@ -3,7 +3,7 @@ import _ from 'lodash'
 const form = document.querySelector(".feedback-form");
 const formStateItemName = "feedback-form-state";
 
-form.addEventListener("input", _.throttle(saveToLocalStorage, 500));
+form.addEventListener("input", saveToLocalStorage);
 form.addEventListener("submit", formSubmit);
 
 function getFormAsObject(formElements) {

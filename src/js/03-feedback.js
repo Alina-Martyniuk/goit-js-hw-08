@@ -23,13 +23,15 @@ function fillFormData(formElements, data) {
 }
 
 function saveToLocalStorage(event) {
-    let formState = getFormAsObject(event.currentTarget.elements);
-    localStorage.setItem(formStateItemName, JSON.stringify(formState));
+    if (event.currentTarget) {
+        let formState = getFormAsObject(event.currentTarget.elements);
+        localStorage.setItem(formStateItemName, JSON.stringify(formState));
+    }
 }
 
 function formSubmit(event) {
     event.preventDefault();
-    let formState = getFormAsObject(event.currentTarget.elements);
+    let formState = getFormAsObject(form.elements);
     console.log(formState);
     localStorage.removeItem(formStateItemName);
     fillFormData(event.currentTarget.elements, {});

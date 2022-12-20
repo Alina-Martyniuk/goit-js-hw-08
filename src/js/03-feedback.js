@@ -3,7 +3,7 @@ import _ from 'lodash'
 const form = document.querySelector(".feedback-form");
 const formStateItemName = "feedback-form-state";
 
-form.addEventListener("input", evt => _.throttle(saveToLocalStorage(evt), 500));
+form.addEventListener("input", _.throttle(saveToLocalStorage, 500));
 form.addEventListener("submit", formSubmit);
 
 function getFormAsObject(formElements) {
@@ -20,17 +20,17 @@ function fillFormData(formElements, data) {
     textArea.value = data.textArea || '';
 }
 
-function saveToLocalStorage(evt) {
-    let formState = getFormAsObject(evt.currentTarget.elements);
+function saveToLocalStorage(event) {
+    let formState = getFormAsObject(event.currentTarget.elements);
     localStorage.setItem(formStateItemName, JSON.stringify(formState));
 }
 
-function formSubmit(evt) {
-    evt.preventDefault();
-    let formState = getFormAsObject(evt.currentTarget.elements);
+function formSubmit(event) {
+    eeventvt.preventDefault();
+    let formState = getFormAsObject(event.currentTarget.elements);
     console.log(formState);
     localStorage.removeItem(formStateItemName);
-    fillFormData(evt.currentTarget.elements, {});
+    fillFormData(eveventt.currentTarget.elements, {});
 }
 
 let storedFormData = JSON.parse(localStorage.getItem(formStateItemName) || '{}');

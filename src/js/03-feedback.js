@@ -26,11 +26,11 @@ function saveToLocalStorage(event) {
 }
 
 function formSubmit(event) {
-    eeventvt.preventDefault();
+    event.preventDefault();
     let formState = getFormAsObject(event.currentTarget.elements);
     console.log(formState);
     localStorage.removeItem(formStateItemName);
-    fillFormData(eveventt.currentTarget.elements, {});
+    fillFormData(event.currentTarget.elements, {});
 }
 
 let storedFormData = JSON.parse(localStorage.getItem(formStateItemName) || '{}');

@@ -7,19 +7,23 @@ form.addEventListener("input", _.throttle(saveToLocalStorage, 500));
 form.addEventListener("submit", formSubmit);
 
 function getFormAsObject(formElements) {
-    let email = formElements[0];
-    let textArea = formElements[1];
-    return {
-        'email': email.value,
-        'textArea': textArea.value
-    };
+    let formData = {};
+    for (let i = 0; i < formElements.length; i++) {
+        let element = formElements[i];
+        if (element.name) {
+            formData[element.name] = element.value;
+        }
+    }
+    return formData;
 }
 
 function fillFormData(formElements, data) {
-    let email = formElements[0];
-    let textArea = formElements[1];
-    email.value = data.email || '';
-    textArea.value = data.textArea || '';
+    for (let i = 0; i < formElements.length; i++) {
+        let element = formElements[i];
+        if (element.name) {
+            element.value = data[element.name] || '';
+        }
+    }
 }
 
 function saveToLocalStorage(event) {
@@ -37,5 +41,9 @@ function formSubmit(event) {
     fillFormData(event.currentTarget.elements, {});
 }
 
-let storedFormData = JSON.parse(localStorage.getItem(formStateItemName) || '{}');
-fillFormData(form.elements, storedFormData);
+try {
+    let storedFormData = JSON.parse(localStorage.getItem(formStateItemName) || '{}');
+    fillFormData(form.elements, storedFormData);
+} catch (error) {
+    console.log(`Can't restore form data. Error: ${error}`);
+}
